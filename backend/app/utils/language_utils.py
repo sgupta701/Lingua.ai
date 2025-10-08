@@ -1,62 +1,32 @@
 # utils/language_utils.py
 
-supported_translation_models = {
-    # English <-> Hindi
-    ("English", "Hindi"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "en_XX", "tgt_lang": "hi_IN"},
-    ("Hindi", "English"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "hi_IN", "tgt_lang": "en_XX"},
-
-    # English <-> Japanese
-    ("English", "Japanese"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "en_XX", "tgt_lang": "ja_XX"},
-    ("Japanese", "English"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ja_XX", "tgt_lang": "en_XX"},
-
-    # English <-> Spanish
-    ("English", "Spanish"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "en_XX", "tgt_lang": "es_XX"},
-    ("Spanish", "English"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "es_XX", "tgt_lang": "en_XX"},
-
-    # English <-> Urdu
-    ("English", "Urdu"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "en_XX", "tgt_lang": "ur_PK"},
-    ("Urdu", "English"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ur_PK", "tgt_lang": "en_XX"},
-
-    # Hindi <-> Japanese
-    ("Hindi", "Japanese"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "hi_IN", "tgt_lang": "ja_XX"},
-    ("Japanese", "Hindi"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ja_XX", "tgt_lang": "hi_IN"},
-
-    # Hindi <-> Spanish
-    ("Hindi", "Spanish"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "hi_IN", "tgt_lang": "es_XX"},
-    ("Spanish", "Hindi"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "es_XX", "tgt_lang": "hi_IN"},
-
-    # Hindi <-> Urdu
-    ("Urdu", "Hindi"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ur_PK", "tgt_lang": "hi_IN"},
-
-    # Japanese <-> Spanish
-    ("Japanese", "Spanish"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ja_XX", "tgt_lang": "es_XX"},
-    ("Spanish", "Japanese"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "es_XX", "tgt_lang": "ja_XX"},
-
-    # Japanese <-> Urdu
-    ("Japanese", "Urdu"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ja_XX", "tgt_lang": "ur_PK"},
-    ("Urdu", "Japanese"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ur_PK", "tgt_lang": "ja_XX"},
-
-    # Spanish <-> Urdu
-    ("Spanish", "Urdu"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "es_XX", "tgt_lang": "ur_PK"},
-    ("Urdu", "Spanish"): {"model": "facebook/mbart-large-50-many-to-many-mmt", "src_lang": "ur_PK", "tgt_lang": "es_XX"},
-}
-
-language_name_to_code = {
-    "English": "en_XX",
-    "Hindi": "hi_IN",
-    "Japanese": "ja_XX",
-    "Spanish": "es_XX",
-    "Urdu": "ur_PK",
-}
-
-def get_supported_languages():
-    langs = set()
-    for pair in supported_translation_models:
-        langs.add(pair[0])
-        langs.add(pair[1])
-    return sorted(list(langs))
+# language_utils.py
 
 def get_model_config(src_lang, tgt_lang):
-    key = (src_lang.strip().title(), tgt_lang.strip().title())
-    print("Looking for model config with key:", key)  
-    return supported_translation_models.get(key)
+    """
+    Return the model name and MBART language codes for a given source and target.
+    """
+    # MBART model
+    model_name = "facebook/mbart-large-50-many-to-many-mmt"
+
+    # MBART language codes
+    lang_codes = {
+        "English": "en_XX",
+        "Hindi": "hi_IN",
+        "Japanese": "ja_XX",
+        "Spanish": "es_XX",
+        "Urdu": "ur_PK"
+    }
+
+    # Prevent unsupported Hindi -> Urdu
+    if src_lang == "hi_IN" and tgt_lang == "ur_PK":
+        return None
+
+    if src_lang in lang_codes.values() and tgt_lang in lang_codes.values():
+        return {
+            "model": model_name,
+            "src_lang": src_lang,
+            "tgt_lang": tgt_lang
+        }
+
+    return None

@@ -11,9 +11,19 @@ const App = () => {
 
   const languages = ["English", "Hindi", "Japanese", "Spanish", "Urdu"];
 
+  // Map friendly names to MBART codes
+  const langCodeMap = {
+    English: "en_XX",
+    Hindi: "hi_IN",
+    Japanese: "ja_XX",
+    Spanish: "es_XX",
+    Urdu: "ur_PK"
+  };
+
   const translate = async () => {
     if (!inputText.trim()) return alert("Please enter some text!");
 
+    // Prevent unsupported Hindi → Urdu
     if (sourceLang === "Hindi" && targetLang === "Urdu") {
       return alert("⚠️ Sorry, Hindi → Urdu translation is not supported.");
     }
@@ -22,11 +32,12 @@ const App = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("https://verta-ai-backend.onrender.com/translate", {
+      const response = await axios.post("http://127.0.0.1:8000/translate", {
         text: inputText,
-        src_lang: sourceLang,
-        tgt_lang: targetLang
+        src_lang: langCodeMap[sourceLang],
+        tgt_lang: langCodeMap[targetLang]
       });
+
       setTranslatedText(response.data.translated_text);
     } catch (err) {
       alert("Translation failed. Check the console.");

@@ -118,7 +118,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 Run backend:
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8000
 ```
 
 ✅ API will be available at: `http://localhost:8000`

@@ -1,0 +1,9 @@
+(venv) E:\multi-lang-translator>cd backend
+
+(venv) E:\multi-lang-translator\backend>uvicorn app.main:app --reload
+
+
+
+
+
+E:\multi-lang-translator\frontend>npm start
