@@ -6,7 +6,7 @@ import torch
 class Translator:
     def __init__(self):
         self.loaded_models = {}
-        self.device = "cpu"  # Render free tier only has CPU
+        self.device = "cpu" 
 
     def load_model(self, model_name):
         if model_name in self.loaded_models:
@@ -16,10 +16,10 @@ class Translator:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForSeq2SeqLM.from_pretrained(
             model_name,
-            torch_dtype=torch.float16  # save memory on CPU
+            torch_dtype=torch.float16  
         )
         model.to(self.device)
-        model.eval()  # disable gradients
+        model.eval()  
 
         self.loaded_models[model_name] = (tokenizer, model)
         return tokenizer, model
@@ -53,7 +53,7 @@ class Translator:
 
         # Free memory
         del inputs, generated_tokens
-        torch.cuda.empty_cache()  # safe on CPU
+        torch.cuda.empty_cache()  
 
         return output_text
 
