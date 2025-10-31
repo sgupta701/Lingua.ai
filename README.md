@@ -1,7 +1,7 @@
 
-# 🌍 Verta AI - GenAI-Powered Multi-Language Translator
+# 🌍 Lingua.ai - GenAI-Powered Multi-Language Translator
 
-**Verta AI** is a full-stack AI-powered web application for real-time multilingual text translation using Hugging Face’s **MBART transformer model**. It features a clean Google Translate-like interface, developed with **React** (frontend) and **FastAPI** (backend), and deployable for free using **Vercel** and **Render**.
+**Lingua.ai** is a full-stack AI-powered web application for real-time multilingual text translation using Hugging Face’s **MBART transformer model**. It features a clean Google Translate-like interface, developed with **React** (frontend) and **FastAPI** (backend), and deployable for free using **Vercel** and **Render**.
 
 ---
 
@@ -93,7 +93,7 @@ multi-lang-translator/
 ### 🔧 1. Clone the Repository
 
 ```bash
-git clone https://github.com/sgupta701/Verta-AI.git
+git clone https://github.com/sgupta701/Lingua.ai.git
 cd multi-lang-translator
 ```
 
@@ -148,29 +148,5 @@ npm start
 | Urdu            | English, Hindi, Spanish, Japanese      |
 
 > ❌ **Hindi → Urdu** is intentionally blocked to avoid poor model performance.
-
----
-
-## 🌟 Planned Enhancements
-
-- 🎛️ Tone/Formality selector via LLM rephrasing
-- 🔉 Text-to-Speech (TTS) support
-- 📁 File translation support (PDF, DOCX, TXT)
-- 🎙️ Voice input (using Whisper/Vosk)
-- ⬇️ Download translated output
-
----
-
-## 📜 License
-
-This project is for educational and demonstration purposes.  
-Feel free to use, modify, and deploy it.
-
----
-
-## 👩‍💻 Author
-
-**Saumya Gupta**  
-📫 [GitHub](https://github.com/sgupta701)
 
 ---
